@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detection App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #EEE;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #FFC107;
+        }
+        p {
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+        form {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: inline-block;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #FFA000;
+        }
+        #result {
+            background-color: #444;c
+            color: #FFC107;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Fake News Detection App</h1>
+<h2> This app is using the bert-base-uncased model</h2>
+<p>This application uses advanced machine learning techniques to analyze news articles and predict whether they are likely to be real or fake. Simply enter the title and text of the article you wish to check, and the app will provide a prediction along with the confidence level of the analysis.</p>
+
+<form id="predictionForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <label for="text">Text:</label>
+    <textarea id="text" name="text"></textarea>
+    <input type="submit" value="Predict">
+</form>
+<div id="result"></div>
+
+<script>
+    document.getElementById('predictionForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerText = `Prediction: ${result.prediction}, Probability: ${result.probability}`;
+        resultDiv.style.display = resultDiv.innerText ? 'block' : 'none'; // Show or hide the div based on content
+    };
+</script>
+</body>
+</html>
