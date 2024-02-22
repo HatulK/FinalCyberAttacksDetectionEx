@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./FinalCyberAttacksDetectionEx/model:/app/model  # Shared volume for the model
+    ports:
+      - 80:80
