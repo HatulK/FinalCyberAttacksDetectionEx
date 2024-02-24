@@ -1,1 +1,5 @@
 .idea
+wandb
+wandb_key.txt
+results
+model
