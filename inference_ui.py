@@ -11,7 +11,7 @@ tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 
 # Create a function to get predictions
 def get_prediction(title, text):
-    inputs = tokenizer(title + " " + text, return_tensors='pt', padding=True, truncation=True, max_length=512)
+    inputs = tokenizer("[TITLE]"+title + " " + "[TEXT]"+text, return_tensors='pt', padding=True, truncation=True, max_length=512)
     outputs = model(**inputs)
     prediction = torch.argmax(outputs.logits, dim=-1).item()
     logits = torch.softmax(outputs.logits, dim=-1).tolist()[0]
