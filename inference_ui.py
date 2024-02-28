@@ -4,9 +4,9 @@ import torch
 
 app = Flask(__name__)
 
-# Load the model and tokenizer
-model = AutoModelForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
-tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+model_path = "volumes/model/"
+model = AutoModelForSequenceClassification.from_pretrained(model_path)
+tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 
 # Create a function to get predictions
